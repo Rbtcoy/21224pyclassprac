@@ -1,5 +1,6 @@
 from weapon import fists
 from healthbar import HealthBar
+import random
 
 class Character:
     def __init__(self, name: str, health: int) -> None:
@@ -9,10 +10,11 @@ class Character:
         self.weapon = fists
         
     def attack(self, target) -> None:
-        target.health -= self.weapon.damage
+        attack_roll = random.randint(1,self.weapon.max_damage)
+        target.health -= attack_roll
         target.health = max(target.health, 0)
         target.health_bar.update()
-        print(f"{self.name} dealt {self.weapon.damage} damage to {target.name} with {self.weapon.name}")
+        print(f"{self.name} dealt {attack_roll} damage to {target.name} with {self.weapon.name}")
         
 class Hero(Character):
     def __init__(self, name: str, health: int) -> None:
